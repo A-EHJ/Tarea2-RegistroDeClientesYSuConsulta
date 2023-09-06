@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using ClientesBlazorServer.DAL;
 
 namespace ClientesBlazorServer
 {
@@ -9,7 +10,7 @@ namespace ClientesBlazorServer
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddDbContext<Contexto.Contexto>(options => options.UseSqlite("Data Source= Data\\Clientes.db"));
+            builder.Services.AddDbContext<Contexto>(options => options.UseSqlite("Data Source= Data\\Clientes.db"));
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();

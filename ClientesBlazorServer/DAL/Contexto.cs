@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ClientesBlazorServer.Models;
 
-namespace ClientesBlazorServer.Contexto
+namespace ClientesBlazorServer.DAL
 {
     public class Contexto: DbContext
     {
