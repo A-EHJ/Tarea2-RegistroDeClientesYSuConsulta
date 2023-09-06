@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 namespace ClientesBlazorServer.Models
 {
-    public class Class
+    public class Cliente
     {
         //ClienteId, Nombres, Telefono, Celular, Rnc, Email, Direccion
         [Key]
