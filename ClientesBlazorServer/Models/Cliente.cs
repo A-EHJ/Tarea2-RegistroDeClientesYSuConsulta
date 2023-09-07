@@ -21,7 +21,8 @@ namespace ClientesBlazorServer.Models
 
 
         [Required(ErrorMessage = "El campo Rnc es obligatorio.")]
-        public string? Rnc { get; set; }
+        [RegularExpression(@"^\d{9}$", ErrorMessage = "El campo Rnc debe tener el formato 000000000.")]
+        public int? Rnc { get; set; }
 
         [Required(ErrorMessage = "El campo Email es obligatorio.")]
         [EmailAddress(ErrorMessage = "El campo Email no es una dirección de correo electrónico válida.")]
