@@ -1,0 +1,107 @@
+﻿@page "/R-cliente"
+
+@using ClientesBlazorServer.BLL
+@using ClientesBlazorServer.Models
+<PageTitle>Registrar Cliente</PageTitle>
+
+
+@inject BLL_Clientes ClientesBLL
+
+<EditForm Model="Cliente" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="container">
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <h3 class="en-el-medio">Registrar Prioridades</h3>
+            </div>
+            <div class=card-body>
+
+                @*ClienteId
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
+                    <label>ClienteId:</label>
+                    <div class="input-group mb-3">
+                        <InputNumber @bind-Value="cliente.ClienteId" class="form-control" aria-describedby="BotonBuscar" />
+                        <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonBuscar"><i class="oi oi-magnifying-glass" /></button>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label" for="Descripcion">Descripción:</label>
+                    <InputText @bind-Value="Prioridad.Descripcion" class="form-control" />
+                    <ValidationMessage For="@(() => Prioridad.Descripcion)" />
+                </div>
+
+                
+                <div class="mb-3">
+                    <label class="form-label">Dias de compromiso:</label>
+                    <InputNumber @bind-Value="Prioridad.DiasCompromiso" class="form-control" />
+                    <ValidationMessage For="@(() => Prioridad.DiasCompromiso)" />
+                </div>*@
+            </div>
+
+            <div class="card-footer d-flex justify-content-center">
+                <div class="btn-group">
+                    <button type="button" class="btn-nuevo" @onclick="Nuevo">Nuevo</button>
+                    <button type="submit" class="btn-guardar">Guardar</button>
+                    <button type="button" class="btn-eliminar" @onclick="Eliminar">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+@code {
+    [Parameter]
+    public int ClienteId { get; set; }
+
+    public Cliente Cliente{ get; set; } = new Cliente();
+    protected override void OnInitialized()
+    {
+        if (ClienteId > 0)
+        {
+            this.Cliente.ClienteId = ClienteId;
+            this.Buscar();
+        }
+    }
+
+    void Buscar()
+    {
+
+        var prioridadEncontrada = ClientesBLL.Buscar(Cliente.ClienteId);
+
+        if (prioridadEncontrada != null)
+        {
+            this.Cliente = prioridadEncontrada;
+        }
+        else
+        {
+            this.Nuevo();
+        }
+    }
+
+    void Nuevo()
+    {
+        this.Cliente = new Cliente();
+    }
+
+    void Guardar()
+    {
+
+        if (Cliente.ClienteId < 0)
+        {
+            return;
+        }
+        if (ClientesBLL.Guardar(this.Cliente))
+        {
+            this.Nuevo();
+        }
+    }
+
+    void Eliminar()
+    {
+        ClientesBLL.Eliminar(Cliente);
+        this.Nuevo();
+    }
+}
+
+
