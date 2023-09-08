@@ -66,3 +66,38 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+
+.centrar-texto {
+    text-align: center;
+}
+
+
+.btn-nuevo {
+    color: white;
+    width: 113px;
+    height: 44px;
+    background: #418DFF;
+    margin-right: 5px;
+    border: none;
+}
+
+.btn-guardar {
+    color: white;
+    width: 113px;
+    height: 44px;
+    background: #15A629;
+    margin-right: 5px;
+    margin-left: 5px;
+    border: none;
+}
+
+.btn-eliminar {
+    color: white;
+    width: 113px;
+    height: 44px;
+    background: #B90000;
+    margin-left: 5px;
+    border: none;
+}
+
