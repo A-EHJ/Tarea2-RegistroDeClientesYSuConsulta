@@ -31,7 +31,7 @@
                 @*Nombres*@
                 <div class="mb-3">
                     <label class="form-label" for="Nombres">Nombres:</label>
-                    <InputText @bind-Value="Cliente.Nombres" @onblur="NombreAsiZzz" class="form-control" placeholder="Nombres" />
+                    <InputText @bind-Value="Cliente.Nombres" @onblur="NombreACapital" class="form-control" placeholder="Nombres" />
                     <ValidationMessage For="@(() => Cliente.Nombres)" />
                 </div>
 
@@ -91,7 +91,7 @@
     public Cliente Cliente{ get; set; } = new Cliente();
     public string Mensaje { get; set; } = string.Empty;
 
-    private void NombreAsiZzz()
+    private void NombreACapital()
     {
         Cliente.Nombres = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Cliente.Nombres.ToLower());
     }
