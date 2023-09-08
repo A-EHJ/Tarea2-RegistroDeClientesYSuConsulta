@@ -17,44 +17,76 @@
             </div>
             <div class=card-body>
 
-                @*ClienteId
+                @*ClienteId*@
                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
                     <label>ClienteId:</label>
                     <div class="input-group mb-3">
-                        <InputNumber @bind-Value="cliente.ClienteId" class="form-control" aria-describedby="BotonBuscar" />
+                        <InputNumber @bind-Value="Cliente.ClienteId" class="form-control" aria-describedby="BotonBuscar" />
                         <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonBuscar"><i class="oi oi-magnifying-glass" /></button>
                     </div>
                 </div>
-                
+                @*Nombres*@
                 <div class="mb-3">
-                    <label class="form-label" for="Descripcion">Descripción:</label>
-                    <InputText @bind-Value="Prioridad.Descripcion" class="form-control" />
-                    <ValidationMessage For="@(() => Prioridad.Descripcion)" />
+                    <label class="form-label" for="Nombres">Descripción:</label>
+                    <InputText @bind-Value="Cliente.Nombres" class="form-control" placeholder="Nombres" />
+                    <ValidationMessage For="@(() => Cliente.Nombres)" />
                 </div>
 
-                
+                @*Telefono*@
                 <div class="mb-3">
-                    <label class="form-label">Dias de compromiso:</label>
-                    <InputNumber @bind-Value="Prioridad.DiasCompromiso" class="form-control" />
-                    <ValidationMessage For="@(() => Prioridad.DiasCompromiso)" />
-                </div>*@
+                    <label class="form-label">Telefono</label>
+                    <InputText @bind-Value="Cliente.Telefono" class="form-control" placeholder="123-456-7890" />
+                    <ValidationMessage For="@(() => Cliente.Telefono)" />
+                </div>
+
+                @*Celular*@
+                <div class="mb-3">
+                    <label class="form-label">Celular</label>
+                    <InputText @bind-Value="Cliente.Celular" class="form-control" placeholder="123-456-7890" />
+                    <ValidationMessage For="@(() => Cliente.Celular)" />
+                </div>
+
+                 @*Rnc*@
+                 <div class="mb-3">
+                     <label class="form-label">Rnc</label>
+                     <InputNumber @bind-Value="Cliente.Rnc" class="form-control" placeholder="000000000" />
+                     <ValidationMessage For="@(() => Cliente.Rnc)" />
+                 </div>
+
+                @*Email*@
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <InputText @bind-Value="Cliente.Email" class="form-control" placeholder="Ejemplo@gmail.com" />
+                    <ValidationMessage For="@(() => Cliente.Email)" />
+                </div>
+
+                @*Dirección*@
+                <div class="mb-3">
+                    <label class="form-label">Dirección</label>
+                    <InputText @bind-Value="Cliente.Direccion" class="form-control" placeholder="Dirección" />
+                    <ValidationMessage For="@(() => Cliente.Direccion)" />
+                </div>
+                </div>
             </div>
 
             <div class="card-footer d-flex justify-content-center">
                 <div class="btn-group">
-                    <button type="button" class="btn-nuevo" @onclick="Nuevo">Nuevo</button>
-                    <button type="submit" class="btn-guardar">Guardar</button>
-                    <button type="button" class="btn-eliminar" @onclick="Eliminar">Eliminar</button>
+                <button type="button" class="btn-nuevo" @onclick="Nuevo" >Nuevo <i class="oi oi-file" /></button>
+                    <button type="submit" class="btn-guardar">Guardar <i class="oi oi-document" /></button>
+                <button type="button" class="btn-eliminar" @onclick="Eliminar"> Eliminar <i class="oi oi-trash" /></button>
                 </div>
             </div>
         </div>
-    </div>
+    
 </EditForm>
+<label class="centrar-texto">@Mensaje</label>
+
 @code {
     [Parameter]
     public int ClienteId { get; set; }
 
     public Cliente Cliente{ get; set; } = new Cliente();
+    public string Mensaje { get; set; } = string.Empty;
     protected override void OnInitialized()
     {
         if (ClienteId > 0)
@@ -68,39 +100,50 @@
     {
 
         var prioridadEncontrada = ClientesBLL.Buscar(Cliente.ClienteId);
-
+        Mensaje = string.Empty;
         if (prioridadEncontrada != null)
         {
             this.Cliente = prioridadEncontrada;
+           
         }
         else
         {
-            this.Nuevo();
+            this.Cliente = new Cliente();
+
+            Mensaje = "No se encontro el cliente";
         }
     }
 
     void Nuevo()
     {
+        
         this.Cliente = new Cliente();
+        Mensaje = string.Empty;
     }
 
     void Guardar()
     {
-
+        Mensaje = string.Empty;
         if (Cliente.ClienteId < 0)
         {
+            Mensaje = "No pudo guardar el cliente";
             return;
         }
         if (ClientesBLL.Guardar(this.Cliente))
         {
-            this.Nuevo();
+            this.Cliente = new Cliente();
         }
     }
 
     void Eliminar()
     {
-        ClientesBLL.Eliminar(Cliente);
-        this.Nuevo();
+        Mensaje = string.Empty;
+        if (ClientesBLL.Eliminar(Cliente))
+            Mensaje = "Se ha eliminado correctamente el cliente";
+        else
+            Mensaje = "No se pudo eliminar el cliente";
+        this.Cliente = new Cliente();
+
     }
 }
 
