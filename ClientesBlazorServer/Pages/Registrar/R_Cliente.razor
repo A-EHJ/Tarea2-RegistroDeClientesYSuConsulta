@@ -1,7 +1,9 @@
 ﻿@page "/R-cliente"
-
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
 @using ClientesBlazorServer.BLL
 @using ClientesBlazorServer.Models
+@using System.Globalization;
 <PageTitle>Registrar Cliente</PageTitle>
 
 
@@ -25,10 +27,11 @@
                         <button @onclick="Buscar" class="btn btn-outline-primary" type="button" id="BotonBuscar"><i class="oi oi-magnifying-glass" /></button>
                     </div>
                 </div>
+
                 @*Nombres*@
                 <div class="mb-3">
-                    <label class="form-label" for="Nombres">Descripción:</label>
-                    <InputText @bind-Value="Cliente.Nombres" class="form-control" placeholder="Nombres" />
+                    <label class="form-label" for="Nombres">Nombres:</label>
+                    <InputText @bind-Value="Cliente.Nombres" @onblur="NombreAsiZzz" class="form-control" placeholder="Nombres" />
                     <ValidationMessage For="@(() => Cliente.Nombres)" />
                 </div>
 
@@ -56,7 +59,7 @@
                 @*Email*@
                 <div class="mb-3">
                     <label class="form-label">Email</label>
-                    <InputText @bind-Value="Cliente.Email" class="form-control" placeholder="Ejemplo@gmail.com" />
+                    <InputText @bind-Value="Cliente.Email" @onblur="Minuscula" class="form-control" placeholder="Ejemplo@gmail.com" />
                     <ValidationMessage For="@(() => Cliente.Email)" />
                 </div>
 
@@ -87,6 +90,19 @@
 
     public Cliente Cliente{ get; set; } = new Cliente();
     public string Mensaje { get; set; } = string.Empty;
+
+    private void NombreAsiZzz()
+    {
+        Cliente.Nombres = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Cliente.Nombres.ToLower());
+    }
+
+    private void Minuscula()
+    {
+
+        Cliente.Email = Cliente.Email.ToLower();
+    }
+
+
     protected override void OnInitialized()
     {
         if (ClienteId > 0)

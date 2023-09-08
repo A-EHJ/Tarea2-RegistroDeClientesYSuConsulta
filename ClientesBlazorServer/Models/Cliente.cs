@@ -8,17 +8,16 @@ namespace ClientesBlazorServer.Models
         public int ClienteId { get; set; }
 
         [Required(ErrorMessage = "El campo Nombres es obligatorio.")]
+        [RegularExpression(@"^[A-Za-z\s]+$", ErrorMessage = "Solo se permiten letras y espacios.")]
         public string? Nombres { get; set; }
 
         [Required(ErrorMessage = "El campo Telefono es obligatorio.")]
         [RegularExpression(@"^\d{3}-\d{3}-\d{4}$", ErrorMessage = "El campo Teléfono debe tener el formato XXX-XXX-XXXX.")]
         public string? Telefono { get; set; }
 
-
         [Required(ErrorMessage = "El campo Celular es obligatorio.")]
         [RegularExpression(@"^\d{3}-\d{3}-\d{4}$", ErrorMessage = "El campo Celular debe tener el formato XXX-XXX-XXXX.")]
         public string? Celular { get; set; }
-
 
         [Required(ErrorMessage = "El campo Rnc es obligatorio.")]
         [RegularExpression(@"^\d{9}$", ErrorMessage = "El campo Rnc debe tener el formato 000000000.")]
