@@ -22,10 +22,11 @@ namespace ClientesBlazorServer.Models
 
         [Required(ErrorMessage = "El campo Rnc es obligatorio.")]
         [RegularExpression(@"^\d{9}$", ErrorMessage = "El campo Rnc debe tener el formato 000000000.")]
-        public int? Rnc { get; set; }
+        public string? Rnc { get; set; }
 
         [Required(ErrorMessage = "El campo Email es obligatorio.")]
-        [EmailAddress(ErrorMessage = "El campo Email no es una dirección de correo electrónico válida.")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@(outlook\.com|hotmail\.com|gmail\.com|yahoo\.com|yahoo\.es|outlook\.es|hotmail\.es|gmail\.es)$",
+            ErrorMessage = "Revise el email ingresado, el formato es ejemplo@dominio.com, dominios aceptados: outlook.com\\es - hotmail.com\\es - gmail.com\\es - yahoo.com\\es")]
         public string? Email { get; set; }
 
         [Required(ErrorMessage = "El campo Direccion es obligatorio.")]
