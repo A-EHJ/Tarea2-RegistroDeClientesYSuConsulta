@@ -71,6 +71,10 @@ namespace ClientesBlazorServer.BLL
         {
             return Contexto.Clientes.AsNoTracking().Where(criterio).ToList();
         }
+        public List<Cliente> GetList()
+        {
+            return Contexto.Clientes.AsNoTracking().ToList();
+        }
 
 
     }
