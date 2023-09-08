@@ -1,6 +1,7 @@
 ﻿using ClientesBlazorServer.DAL;
 using ClientesBlazorServer.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 
 namespace ClientesBlazorServer.BLL
@@ -65,6 +66,11 @@ namespace ClientesBlazorServer.BLL
         public Cliente? Buscar(int id)
         {
             return Contexto.Clientes.Where(o => o.ClienteId == id).AsNoTracking().SingleOrDefault(); ;
+        }
+
+        public List<Cliente> BuscarPorId(int id)
+        {
+            return Contexto.Clientes.AsNoTracking().Where(c => c.ClienteId == id).ToList();
         }
 
         public List<Cliente> GetList(Expression<Func<Cliente, bool>> criterio)

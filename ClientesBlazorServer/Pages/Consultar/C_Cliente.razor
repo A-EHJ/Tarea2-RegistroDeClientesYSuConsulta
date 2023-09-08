@@ -15,8 +15,17 @@
     </div>
 
     <div class="card-body">
-        <div class="row">
-            <button type="button" @onclick="BuscarDatos" class="btn btn-primary input-group-text">
+        <div>
+            <label>Consultar Todo</label>
+            <button type="button" @onclick="BuscarTodo" class="btn btn-primary input-group-text">
+                <i class="oi oi-magnifying-glass " />
+            </button>
+        </div>
+        <br />
+        <div>
+            <label>Consultar por ID</label>
+            <InputNumber @bind-Value="ClienteId"  aria-describedby="BotonBuscar" />
+            <button type="button" @onclick="BuscarId" class="btn btn-primary input-group-text">
                 <i class="oi oi-magnifying-glass " />
             </button>
         </div>
@@ -72,12 +81,18 @@
     public List<Cliente> Clientes { get; set; } = new List<Cliente>();
     public string? Error { get; set; } = null;
 
-  
+    [Parameter]
+    public int ClienteId { get; set; }
 
-    private void BuscarDatos()
+    private void BuscarTodo()
     {
 
         this.Clientes = ClientesBLL.GetList();
     }
 
+    private void BuscarId()
+    {
+
+        this.Clientes = ClientesBLL.BuscarPorId(ClienteId);
+    }
 }
